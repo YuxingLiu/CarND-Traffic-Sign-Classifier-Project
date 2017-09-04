@@ -527,6 +527,6 @@ with tf.Session() as sess:
 
 ## Step 4: Visualizing the Neural Network's State with Test Images
 
-Here are the first convolutional layer's feature maps in response to the first new image from the web (21, double curve). It can be seen that each feature map focuses on a certain portion of the image. For instance, feature maps 6, 11 and 27 react with high activation to the trianglar outline of the sign, while feature maps 15 and 26 roughly capture the z-shaped symbol.
+Here are the first convolutional layer's feature maps in response to the first new image from the web (21, double curve). It can be seen that each feature map focuses on a certain portion of the image. For instance, feature maps 6, 11 and 27 react with high activation to the triangular outline of the sign, while feature maps 15 and 26 roughly capture the z-shaped symbol.
 
 ![alt text][image13]
