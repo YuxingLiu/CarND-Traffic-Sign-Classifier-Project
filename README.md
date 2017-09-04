@@ -188,7 +188,7 @@ My final model consisted of the following layers:
 | Dropout		        | keep_prob = 0.5							    |
 | Fully connected		| outputs 43        						    |
 | RELU					|												|
-| Softmax				|         									    |
+| Softmax				| probabilities of 43 traffic signs             |
  
 
 
