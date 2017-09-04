@@ -103,37 +103,37 @@ signs_pd['NumTest'] = pd.Series(signs_num_test)
 | 9         |   No passing                  |   1320        |   150         |   480     |
 | 10        |   No passing for vehicles over 3.5 metric tons | 1800 | 210   |   660     |
 | 11        |   Right-of-way at the next intersection   | 1170    | 150     |   420     |
-12,Priority road
-13,Yield
-14,Stop
-15,No vehicles
-16,Vehicles over 3.5 metric tons prohibited
-17,No entry
-18,General caution
-19,Dangerous curve to the left
-20,Dangerous curve to the right
-21,Double curve
-22,Bumpy road
-23,Slippery road
-24,Road narrows on the right
-25,Road work
-26,Traffic signals
-27,Pedestrians
-28,Children crossing
-29,Bicycles crossing
-30,Beware of ice/snow
-31,Wild animals crossing
-32,End of all speed and passing limits
-33,Turn right ahead
-34,Turn left ahead
-35,Ahead only
-36,Go straight or right
-37,Go straight or left
-38,Keep right
-39,Keep left
-40,Roundabout mandatory
-41,End of no passing
-42,End of no passing by vehicles over 3.5 metric tons
+| 12        |   Priority road               |   1890        |   210         |   690     |
+| 13        |   Yield                       |   1920        |   240         |   720     |
+| 14        |   Stop                        |   690         |   90          |   270     |
+| 15        |   No vehicles                 |   540         |   90          |   210     |
+| 16        |   Vehicles over 3.5 metric tons prohibited | 360  |   60      |   150     |
+| 17        |   No entry                    |   990         |   120         |   360     |
+| 18        |   General caution             |   1080        |   120         |   390     |
+| 19        |   Dangerous curve to the left |   180         |   30          |   60      |
+| 20        |   Dangerous curve to the right|   300         |   60          |   90      |
+| 21        |   Double curve                |   270         |   60          |   90      |
+| 22        |   Bumpy road                  |   330         |   60          |   90      |
+| 23        |   Slippery road               |   450         |   60          |   150     |
+| 24        |   Road narrows on the right   |   240         |   30          |   90      |
+| 25        |   Road work                   |   1350        |   150         |   480     |
+| 26        |   Traffic signals             |   540         |   60          |   180     |
+| 27        |   Pedestrians                 |   210         |   30          |   60      |
+| 28        |   Children crossing           |   480         |   60          |   150     |
+| 29        |   Bicycles crossing           |   240         |   30          |   90      |
+| 30        |   Beware of ice/snow          |   390         |   60          |   150     |
+| 31        |   Wild animals crossing       |   690         |   90          |   270     |
+| 32        |   End of all speed and passing limits |   210 |   30          |   60      |
+| 33        |   Turn right ahead            |   599         |   90          |   210     |
+| 34        |   Turn left ahead             |   360         |   60          |   120     |
+| 35        |   Ahead only                  |   1080        |   120         |   390     |
+| 36        |   Go straight or right        |   330         |   60          |   120     |
+| 37        |   Go straight or left         |   180         |   30          |   60      |
+| 38        |   Keep right                  |   1860        |   210         |   690     |
+| 39        |   Keep left                   |   270         |   30          |   90      |
+| 40        |   Roundabout mandatory        |   300         |   60          |   90      |
+| 41        |   End of no passing           |   210         |   30          |   60      |
+| 42        |   End of no passing by vehicles over 3.5 metric tons | 210 | 30|  90      |
 
 ####2. Include an exploratory visualization of the dataset.
 
