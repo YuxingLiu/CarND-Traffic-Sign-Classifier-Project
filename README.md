@@ -89,17 +89,51 @@ signs_pd['NumTrain'] = pd.Series(signs_num_train)
 signs_pd['NumValid'] = pd.Series(signs_num_valid)
 signs_pd['NumTest'] = pd.Series(signs_num_test)
 ```
-| ClassId         		|     SignName	        					|   NumTrain    |   NumValid    |   NumTest
-|:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
+| ClassId   |   SignName	        	    |   NumTrain    |   NumValid    |   NumTest |
+|:---------:|:-----------------------------:|:-------------:|:-------------:|:---------:| 
+| 0         |   Speed limit (20km/h)        |   180         |   30          |   60      |
+| 1         |   Speed limit (30km/h)        |   1980        |   240         |   720     |
+| 2         |   Speed limit (50km/h)        |   2010        |   240         |   750     |
+| 3         |   Speed limit (60km/h)        |   1260        |   150         |   450     |
+| 4         |   Speed limit (70km/h)        |   1770        |   210         |   660     |
+| 5         |   Speed limit (80km/h)        |   1650        |   210         |   630     |
+| 6         |   End of speed limit (80km/h) |   360         |   60          |   150     |
+| 7         |   Speed limit (100km/h)       |   1290        |   150         |   450     |
+| 8         |   Speed limit (120km/h)       |   1260        |   150         |   450     |
+| 9         |   No passing                  |   1320        |   150         |   480     |
+| 10        |   No passing for vehicles over 3.5 metric tons | 1800 | 210   |   660     |
+| 11        |   Right-of-way at the next intersection   | 1170    | 150     |   420     |
+12,Priority road
+13,Yield
+14,Stop
+15,No vehicles
+16,Vehicles over 3.5 metric tons prohibited
+17,No entry
+18,General caution
+19,Dangerous curve to the left
+20,Dangerous curve to the right
+21,Double curve
+22,Bumpy road
+23,Slippery road
+24,Road narrows on the right
+25,Road work
+26,Traffic signals
+27,Pedestrians
+28,Children crossing
+29,Bicycles crossing
+30,Beware of ice/snow
+31,Wild animals crossing
+32,End of all speed and passing limits
+33,Turn right ahead
+34,Turn left ahead
+35,Ahead only
+36,Go straight or right
+37,Go straight or left
+38,Keep right
+39,Keep left
+40,Roundabout mandatory
+41,End of no passing
+42,End of no passing by vehicles over 3.5 metric tons
 
 ####2. Include an exploratory visualization of the dataset.
 
