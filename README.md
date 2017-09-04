@@ -480,10 +480,37 @@ with tf.Session() as sess:
 
 ![alt text][image7]
 
-From the above plot, one could see that the precision and recall of those 5 classes are above 80%, which justifies the high accuracy on the 5 new images. On the other hand, note that the recall values of class 20 and 27 are relatively low, which give some insight into  how to better augment the data set and how to fine tune the model.
+As shown in the above figure, the precision and recall of those 5 classes are above 80%, which justifies the high accuracy on the 5 new images. On the other hand, the recall values of class 20 and 27 are relatively low, which gives some insight into how to better augment the data set and how to fine tune the model.
 
 ### Output Top 5 Softmax Probabilities For Each Image
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+
+```python
+prob_softmax = tf.nn.softmax(logits)
+pred_top5 = tf.nn.top_k(prob_softmax, k=5)
+
+with tf.Session() as sess:
+    saver.restore(sess, 'saved_models/ConvNet.ckpt')
+    
+    predictions_top5 = sess.run(pred_top5, feed_dict={x: X_web, y: y_web, keep_prob: 1})
+    
+    for i in range(len(y_web)):
+        plt.figure(figsize = (8,3))
+        gs = gridspec.GridSpec(1, 2, width_ratios=[2,3])
+        ax = plt.subplot(gs[0])
+        ax.set_aspect('equal')
+        plt.imshow(X_web[i]+.5)
+        plt.text(1,2,str(y_web[i]),color='k',backgroundcolor='y')
+        plt.axis('off')
+
+        plt.subplot(gs[1])
+        plt.barh(5-np.arange(5), predictions_top5.values[i], align='center')
+        plt.xlim(xmax=1)
+        for j in range(5):
+            plt.text(predictions_top5.values[i][j]+0.02, 4.9-j,
+                     str(predictions_top5.indices[i][j])+': '+signs_pd['SignName'][predictions_top5.indices[i][j]])
+        plt.axis('off')
+```
+
 
 For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
 
