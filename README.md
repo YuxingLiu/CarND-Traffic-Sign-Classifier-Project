@@ -21,9 +21,9 @@ Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/4
 
 [image1]: ./figures/all_signs.png "Visualization of Traffic Signs"
 [image2]: ./figures/distribution_traffic_signs.png "Distribution of Traffic Signs"
-[image3]: ./figures/random_noise.jpg "Random Noise"
-[image4]: ./figures/placeholder.png "Traffic Sign 1"
-[image5]: ./figures/placeholder.png "Traffic Sign 2"
+[image3]: ./figures/exp_original.png "Original Images"
+[image4]: ./figures/exp_aug.png "Augmented Images"
+[image5]: ./figures/exp_aug_pp.png "Pre-processed Images"
 [image6]: ./figures/placeholder.png "Traffic Sign 3"
 [image7]: ./figures/placeholder.png "Traffic Sign 4"
 [image8]: ./figures/placeholder.png "Traffic Sign 5"
@@ -183,6 +183,10 @@ def augment_images(X_data, y_data, N_aug=5):
         y_aug[i*N_aug:(i+1)*N_aug] = y_data[i]
     
     return X_aug, y_aug
+    
+X_train_aug, y_train_aug = augment_images(X_train, y_train, N_aug=5)
+X_train = np.concatenate((X_train, X_train_aug), axis=0)
+y_train = np.concatenate((y_train, y_train_aug), axis=0)    
 ```
 
 Next, the following preprocessing steps are applied for all the data sets:
@@ -202,13 +206,26 @@ def pre_process_image(image):
 
 def pre_process_images(images):
     return np.array([pre_process_image(images[i]) for i in range(len(images))])
+    
+X_train = pre_process_images(X_train)
+X_valid = pre_process_images(X_valid)
+X_test = pre_process_images(X_test)    
 ```
+Here is an example of 10 traffic sign images before and after pre-processing.
+
+Original:
+![alt text][image3]
+
+After augmentation:
+![alt text][image4]
+
+After pre-processing:
+![alt text][image5]
 
 ####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
 As a first step, I decided to convert the images to grayscale because ...
 
-Here is an example of a traffic sign image before and after grayscaling.
 
 As a last step, I normalized the image data because ...
 
