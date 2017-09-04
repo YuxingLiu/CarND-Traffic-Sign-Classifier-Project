@@ -19,14 +19,14 @@ Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/4
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image1]: ./figures/distribution_traffic_signs.png "Distribution of Traffic Signs"
+[image2]: ./figures/grayscale.jpg "Grayscaling"
+[image3]: ./figures/random_noise.jpg "Random Noise"
+[image4]: ./figures/placeholder.png "Traffic Sign 1"
+[image5]: ./figures/placeholder.png "Traffic Sign 2"
+[image6]: ./figures/placeholder.png "Traffic Sign 3"
+[image7]: ./figures/placeholder.png "Traffic Sign 4"
+[image8]: ./figures/placeholder.png "Traffic Sign 5"
 
 ---
 
@@ -134,6 +134,32 @@ signs_pd['NumTest'] = pd.Series(signs_num_test)
 | 40        |   Roundabout mandatory        |   300         |   60          |   90      |
 | 41        |   End of no passing           |   210         |   30          |   60      |
 | 42        |   End of no passing by vehicles over 3.5 metric tons | 210 | 30|  90      |
+
+Plot the traffic signs distribution in the training set
+
+```python
+plt.figure(figsize = (16,8))
+gs = gridspec.GridSpec(3,1)
+gs.update(wspace=0.05, hspace=0.05) # set the spacing between axes.
+    
+plt.subplot(gs[0])
+plt.bar(range(43),signs_num_train*100.0/np.sum(signs_num_train))
+plt.ylabel('Freq Train [%]')
+plt.title('Distribution of Traffic Sign Images')
+
+plt.subplot(gs[1])
+plt.bar(range(43),signs_num_valid*100.0/np.sum(signs_num_valid))
+plt.ylabel('Freq Valid [%]')
+
+plt.subplot(gs[2])
+plt.bar(range(43),signs_num_test*100.0/np.sum(signs_num_test))
+plt.xlabel('Sign ID')
+plt.ylabel('Freq Test [%]')
+plt.xticks(np.arange(0,43,5), (np.arange(0,43,5)))
+plt.show()
+```
+
+
 
 ####2. Include an exploratory visualization of the dataset.
 
