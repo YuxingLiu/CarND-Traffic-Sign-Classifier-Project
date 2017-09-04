@@ -181,10 +181,13 @@ My final model consisted of the following layers:
 | RELU					|												|
 | Max pooling	      	| 2x2 stride,  outputs 4x4x128 				    |
 | Fully connected		| outputs 256        						    |
+| RELU					|												|
 | Dropout		        | keep_prob = 0.5							    |
 | Fully connected		| outputs 128        						    |
+| RELU					|												|
 | Dropout		        | keep_prob = 0.5							    |
 | Fully connected		| outputs 43        						    |
+| RELU					|												|
 | Softmax				|         									    |
  
 
