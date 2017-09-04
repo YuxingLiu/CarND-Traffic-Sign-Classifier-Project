@@ -19,7 +19,7 @@ Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/4
 
 [//]: # (Image References)
 
-[image1]: ./figures/all_signs.jpg "Visualization of Traffic Signs"
+[image1]: ./figures/all_signs.png "Visualization of Traffic Signs"
 [image2]: ./figures/distribution_traffic_signs.png "Distribution of Traffic Signs"
 [image3]: ./figures/random_noise.jpg "Random Noise"
 [image4]: ./figures/placeholder.png "Traffic Sign 1"
@@ -30,9 +30,9 @@ Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/4
 
 ---
 
-## Data Set Summary & Exploration
+## Step 1: Data Set Summary & Exploration
 
-### 0. Load the data
+### Load the data
 
 Download the pickled [dataset](https://d17h27t6h515a5.cloudfront.net/topher/2017/February/5898cd6f_traffic-signs-data/traffic-signs-data.zip), in which the images have been resized to 32x32.
 
@@ -56,7 +56,7 @@ X_valid, y_valid = valid['features'], valid['labels']
 X_test, y_test = test['features'], test['labels']
 ```
 
-### 1. Provide a basic summary of the data set using python, numpy and/or pandas
+### Provide a basic summary of the data set using python, numpy and/or pandas
 
 The numpy library are used to calculate summary statistics of the traffic signs data set:
 
@@ -76,7 +76,7 @@ n_classes = len(np.unique(y_train))
 * The shape of a traffic sign image is (32, 32, 3)
 * The number of unique classes/labels in the data set is 43
 
-### 2. Include an exploratory visualization of the dataset.
+### Include an exploratory visualization of the dataset.
 
 Here is an exploratory visualization of the data set.
 
@@ -141,7 +141,7 @@ The traffic signs distribution in the training set is plotted below. It can be o
 
 
 
-###Design and Test a Model Architecture
+## Step 2: Design and Test a Model Architecture
 
 ####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
