@@ -215,32 +215,12 @@ Here is an example of 10 traffic sign images before and after pre-processing.
 
 Original:
 ![alt text][image3]
-
 After augmentation:
 ![alt text][image4]
-
 After pre-processing:
 ![alt text][image5]
 
-####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
-
-As a first step, I decided to convert the images to grayscale because ...
-
-
-As a last step, I normalized the image data because ...
-
-I decided to generate additional data because ... 
-
-To add more data to the the data set, I used the following techniques because ... 
-
-Here is an example of an original image and an augmented image:
-
-![alt text][image3]
-
-The difference between the original data set and the augmented data set is the following ... 
-
-
-####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+### Model Architecture
 
 My final model consisted of the following layers:
 
@@ -266,7 +246,7 @@ My final model consisted of the following layers:
 | RELU					|												|
 | Softmax				| probabilities of 43 traffic signs             |
  
-
+The first 3 convolutional layers consist of 32, 64, 128 (respectively) 5x5 filters, followed by 2x2 max pooling. The output of the third convolutional layer is flatten and fed to 3 fully connected layers, which are composed of 256, 128, 43 neurons, respectively. In addition, dropout is applied to the output of the 2 hidden layers.
 
 ####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
