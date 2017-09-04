@@ -513,25 +513,19 @@ with tf.Session() as sess:
         plt.xlim(xmax=1)
         for j in range(5):
             plt.text(predictions_top5.values[i][j]+0.02, 4.9-j,
-                     str(predictions_top5.indices[i][j])+': '+signs_pd['SignName'][predictions_top5.indices[i][j]])
+                     str(predictions_top5.indices[i][j])+': '
+                     +signs_pd['SignName'][predictions_top5.indices[i][j]])
         plt.axis('off')
 ```
 
+![alt text][image8]
+![alt text][image9]
+![alt text][image10]
+![alt text][image11]
+![alt text][image12]
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
-
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
-
-
-For the second image ... 
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 ####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
-
+![alt text][image13]
