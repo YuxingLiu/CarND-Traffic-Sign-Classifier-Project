@@ -25,12 +25,12 @@ Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/4
 [image4]: ./figures/exp_aug.png "Augmented Images"
 [image5]: ./figures/exp_aug_pp.png "Pre-processed Images"
 [image6]: ./figures/new_pp.png "5 New Traffic Signs"
-[image7]: ./figures/sign1.png "Traffic Sign 1"
-[image8]: ./figures/sign2.png "Traffic Sign 2"
-[image9]: ./figures/sign3.png "Traffic Sign 3"
-[image10]: ./figures/sign4.png "Traffic Sign 4"
-[image11]: ./figures/sign5.png "Traffic Sign 5"
-[image12]: ./figures/precision_recall.png "Precision and Recall"
+[image7]: ./figures/precision_recall.png "Precision and Recall"
+[image8]: ./figures/sign1.png "Traffic Sign 1"
+[image9]: ./figures/sign2.png "Traffic Sign 2"
+[image10]: ./figures/sign3.png "Traffic Sign 3"
+[image11]: ./figures/sign4.png "Traffic Sign 4"
+[image12]: ./figures/sign5.png "Traffic Sign 5"
 [image13]: ./figures/conv1_feature_map.png "Conv1 Feature Map"
 
 ---
@@ -434,8 +434,6 @@ for i in range(len(name_images)):
 ![alt text][image6] 
 
 
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
-
 ### Predict the Sign Type for Each Image
 
 ```python
@@ -458,6 +456,31 @@ Here are the results of the prediction:
 
 The model was able to correctly guess 5 of the 5 traffic signs with over 97% certainty, which gives an accuracy of 100%. 
 
+To further analyze the performance on each class of signs, the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) on the test set are calculated as follows:
+
+```python
+def precision_recall(y_data, y_pred):
+    num_SignId = len(np.unique(y_data))
+    pr_data = np.zeros([num_SignId,2])
+    for i in range(num_SignId):
+        true_obsv = np.equal(y_pred, i)
+        true_actual = np.equal(y_data, i)
+        true_pos = np.logical_and(true_obsv, true_actual)
+        num_obsv = np.sum(true_obsv.astype(np.float32))
+        num_actual = np.sum(true_actual.astype(np.float32))
+        num_pos = np.sum(true_pos.astype(np.float32))
+        pr_data[i] = [num_pos/num_obsv, num_pos/num_actual]
+        
+    return pr_data
+
+with tf.Session() as sess:
+    saver.restore(sess, 'saved_models/ConvNet.ckpt')
+        
+    y_pred = sess.run(tf.argmax(logits, 1), feed_dict={x: X_test, y: y_test, keep_prob: 1})
+    pr_test = precision_recall(y_test, y_pred)
+```
+
+![alt text][image7]
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
