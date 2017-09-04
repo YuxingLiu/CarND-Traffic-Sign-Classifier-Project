@@ -408,7 +408,7 @@ After implementing augmentation and preprocessing, the validation accuracy of Le
 As regards the parameters tuning, the 'EPOCHS' and 'BATCH_SIZE' were limited by the computational power and memory size, respectively. With default 'learning_rate=1e-3', it was found that the validation accuracy could reach 97% after 3 iterations, and then oscillated between 97% and 98%. Therefore, 'learning_rate=1e-4' was selected such that the validation accuracy progressively increased after each epoch.
 
 
-## Test the Model on New Images
+## Step 3: Test the Model on New Images
 
 ### Load and Output the Images
 
@@ -525,7 +525,8 @@ with tf.Session() as sess:
 ![alt text][image12]
 
 
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+## Step 4: Visualizing the Neural Network's State with Test Images
+
+Here are the first convolutional layer's feature maps in response to the first new image from the web (21, double curve). It can be seen that each feature map focuses on a certain portion of the image. For instance, feature maps 6, 11 and 27 react with high activation to the trianglar outline of the sign, while feature maps 15 and 26 roughly capture the z-shaped symbol.
 
 ![alt text][image13]
