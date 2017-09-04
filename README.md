@@ -24,9 +24,14 @@ Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/4
 [image3]: ./figures/exp_original.png "Original Images"
 [image4]: ./figures/exp_aug.png "Augmented Images"
 [image5]: ./figures/exp_aug_pp.png "Pre-processed Images"
-[image6]: ./figures/placeholder.png "Traffic Sign 3"
-[image7]: ./figures/placeholder.png "Traffic Sign 4"
-[image8]: ./figures/placeholder.png "Traffic Sign 5"
+[image6]: ./figures/new_pp.png "5 New Traffic Signs"
+[image7]: ./figures/sign1.png "Traffic Sign 1"
+[image8]: ./figures/sign2.png "Traffic Sign 2"
+[image9]: ./figures/sign3.png "Traffic Sign 3"
+[image10]: ./figures/sign4.png "Traffic Sign 4"
+[image11]: ./figures/sign5.png "Traffic Sign 5"
+[image12]: ./figures/precision_recall.png "Precision and Recall"
+[image13]: ./figures/conv1_feature_map.png "Conv1 Feature Map"
 
 ---
 
@@ -392,19 +397,41 @@ It's worth mentioning that it is an iterative process to find a solution with 98
 
 As illustrated in the dataset visualization, the real-world variabilities such as viewpoint, lighting conditions, motion-blur, sun glare, colors fading and low resolution pose difficulties for traffic sign classification. To this extent, data augmentation and Histogram equalization were utilized to enhance the robustness of the model against small disturbances. 
 
-After implementing augmentation and preprocessing, the validation accuracy of LeNet-5 was improved to 94%, while the training accuracy could reach 98%. The gap between the two accuracies implies overfitting, hence two dropout layers with 'keep_prob=0.5' were added to the fully connected hidden layers. Meanwhile, to further improve the performance of the classifier as well as to generate some 'redundent' features required for the dropout technique, a deeper (one additional convolutional layer) and wider (more features in each layer) network architecture was constructed.
+After implementing augmentation and preprocessing, the validation accuracy of LeNet-5 was improved to 94%, while the training accuracy could reach 98%. The gap between the two accuracies implies overfitting, hence two dropout layers with 'keep_prob=0.5' were added to the fully connected hidden layers. Meanwhile, to further improve the performance of the classifier as well as to generate some 'redundant' features required for the dropout technique, a deeper (one additional convolutional layer) and wider (more features in each layer) network architecture was constructed.
 
-As regards the parameters tuning, the 'EPOCHS' and 'BATCH_SIZE' were limited by the computational power and memory size, respectively. With default 'learning_rate=1e-3', it was found that the validation accuracy could reach 97% after 3 iterations, then oscillated between 97% and 98%. Therefore, 'learning_rate=1e-4' was selected such that the validation accuracy progressively increased after each epoch.
+As regards the parameters tuning, the 'EPOCHS' and 'BATCH_SIZE' were limited by the computational power and memory size, respectively. With default 'learning_rate=1e-3', it was found that the validation accuracy could reach 97% after 3 iterations, and then oscillated between 97% and 98%. Therefore, 'learning_rate=1e-4' was selected such that the validation accuracy progressively increased after each epoch.
 
 
 ## Test the Model on New Images
 
+### Load and Output the Images
+
+
 ####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
-Here are five German traffic signs that I found on the web:
+Here is the [five German traffic signs](https://github.com/YuxingLiu/CarND-Traffic-Sign-Classifier-Project/tree/master/new_images) found on the web, which are down-sampled to 32x32 and pre-processed.
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+```python
+name_images = os.listdir("new_images/")
+X_web = np.zeros((len(name_images), 32, 32, 3), dtype=np.float64)
+y_web = np.zeros(len(name_images), dtype=np.uint8)
+
+for i in range(len(name_images)):
+    # Read in the image
+    image = cv2.imread('new_images/'+name_images[i])
+    # Brighness normalization
+    img_yuv = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)
+    img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])  
+    # Resize
+    resized = cv2.resize(img_yuv, (32,32), interpolation = cv2.INTER_AREA)
+    image = cv2.cvtColor(resized, cv2.COLOR_YUV2RGB)
+    # normalization
+    X_web[i] = image/255.0 - 0.5
+    # assign labels
+    y_web[i] = np.array(name_images[i][-6:-4]).astype(np.uint8)
+```
+
+![alt text][image6] 
 
 The first image might be difficult to classify because ...
 
