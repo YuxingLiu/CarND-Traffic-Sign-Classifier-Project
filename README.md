@@ -153,6 +153,7 @@ From the previous visualization, one could see that the images are collected in 
 * Rotation ([-15, 15] degrees)
 
 The [imgaug](https://github.com/aleju/imgaug) library is used to augment images in the training set:
+
 ```python
 from imgaug import augmenters as iaa
 
@@ -192,6 +193,7 @@ y_train = np.concatenate((y_train, y_train_aug), axis=0)
 Next, the following preprocessing steps are applied for all the data sets:
 * Histogram equalization to enhance contrast
 * Normalization in range [-0.5, 0.5]
+
 ```python
 import cv2
 
@@ -211,12 +213,15 @@ X_train = pre_process_images(X_train)
 X_valid = pre_process_images(X_valid)
 X_test = pre_process_images(X_test)    
 ```
+
 Here is an example of 10 traffic sign images before and after pre-processing.
 
 Original:
 ![alt text][image3]
+
 After augmentation:
 ![alt text][image4]
+
 After pre-processing:
 ![alt text][image5]
 
@@ -247,6 +252,77 @@ My final model consisted of the following layers:
 | Softmax				| probabilities of 43 traffic signs             |
  
 The first 3 convolutional layers consist of 32, 64, 128 (respectively) 5x5 filters, followed by 2x2 max pooling. The output of the third convolutional layer is flatten and fed to 3 fully connected layers, which are composed of 256, 128, 43 neurons, respectively. In addition, dropout is applied to the output of the 2 hidden layers.
+
+```python
+import tensorflow as tf
+from tensorflow.contrib.layers import flatten
+
+def con2d(x, W, b, strides=1):
+    x = tf.nn.conv2d(x, W, strides=[1, strides, strides, 1], padding='SAME') + b
+    return tf.nn.relu(x)
+
+def maxpool2d(x, k=2):
+    return tf.nn.max_pool(x, ksize=[1,k,k,1], strides = [1,k,k,1], padding="SAME")
+
+def fc2d(x, W, b):
+    x = tf.matmul(x, W) + b
+    return tf.nn.relu(x)
+```
+```python    
+### Features and Labels
+x = tf.placeholder(tf.float32, (None, 32, 32, 3))
+y = tf.placeholder(tf.int32, (None))
+one_hot_y = tf.one_hot(y, 43)
+keep_prob = tf.placeholder(tf.float32)  
+```
+```python
+### Weights and Biases
+mu = 0
+sigma = 0.1
+
+weights = {
+    'wc1': tf.Variable(tf.truncated_normal([5, 5, 3, 32], mu, sigma)),
+    'wc2': tf.Variable(tf.truncated_normal([5, 5, 32, 64], mu, sigma)),
+    'wc3': tf.Variable(tf.truncated_normal([5, 5, 64, 128], mu, sigma)),
+    'wd1': tf.Variable(tf.truncated_normal([4*4*128, 256], mu, sigma)),
+    'wd2': tf.Variable(tf.truncated_normal([256, 128], mu, sigma)),
+    'wd3': tf.Variable(tf.truncated_normal([128, n_classes], mu, sigma))}
+
+biases = {
+    'bc1': tf.Variable(tf.zeros(32)),
+    'bc2': tf.Variable(tf.zeros(64)),
+    'bc3': tf.Variable(tf.zeros(128)),
+    'bd1': tf.Variable(tf.zeros(256)),
+    'bd2': tf.Variable(tf.zeros(128)),
+    'bd3': tf.Variable(tf.zeros(n_classes))}
+```
+```python
+### ConvNet
+# Layer 1: Convolutional. Input = 32x32x3. Output = 16x16x32.
+conv1 = con2d(x, weights['wc1'], biases['bc1'])
+conv1 = maxpool2d(conv1, k=2)
+
+# Layer 2: Convolutional. Output = 8x8x64.
+conv2 = con2d(conv1, weights['wc2'], biases['bc2'])
+conv2 = maxpool2d(conv2, k=2)
+
+# Layer 3: Convolutional. Output = 4x4x128.
+conv3 = con2d(conv2, weights['wc3'], biases['bc3'])
+conv3 = maxpool2d(conv3, k=2)
+
+# Layer 4: Fully Connected. Input = 1024. Output = 256.
+fc1 = fc2d(flatten(conv3), weights['wd1'], biases['bd1'])
+fc1 = tf.nn.dropout(fc1, keep_prob)
+
+# Layer 5: Fully Connected. Input = 256. Output = 128.
+fc2 = fc2d(fc1, weights['wd2'], biases['bd2'])
+fc2 = tf.nn.dropout(fc2, keep_prob)
+
+# Layer 6: Fully Connected. Input = 128. Output = 43.
+logits = fc2d(fc2, weights['wd3'], biases['bd3'])
+```
+
+### Train, Validate and Test the Model
 
 ####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
