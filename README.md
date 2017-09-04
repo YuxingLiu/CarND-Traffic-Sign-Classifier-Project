@@ -36,7 +36,7 @@ Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/4
 
 Download the pickled [dataset](https://d17h27t6h515a5.cloudfront.net/topher/2017/February/5898cd6f_traffic-signs-data/traffic-signs-data.zip), in which the images have been resized to 32x32.
 
-```
+```python
 import pickle
 import os
 
@@ -60,13 +60,23 @@ X_test, y_test = test['features'], test['labels']
 
 The numpy and pandas libraries are used to calculate summary statistics of the traffic signs data set:
 
+```python
+import numpy as np
+
+n_train = len(y_train)
+n_validation = len(y_valid)
+n_test = len(y_test)
+image_shape = X_train[0].shape
+n_classes = len(np.unique(y_train))
+```
+
 * The size of training set is 34799
 * The size of the validation set is 4410
 * The size of test set is 12630
 * The shape of a traffic sign image is (32, 32, 3)
 * The number of unique classes/labels in the data set is 43
 
-The mappings from the class ID to the actual sign name can be found in 'signnames.csv'
+The mappings from the class ID to the actual sign name can be found in ['signnames.csv']
 
 ####2. Include an exploratory visualization of the dataset.
 
