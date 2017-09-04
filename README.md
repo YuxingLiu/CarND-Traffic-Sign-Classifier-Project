@@ -90,9 +90,15 @@ Here is an exploratory visualization of the data set.
 The mappings from the class ID to the actual sign name can be found in ['signnames.csv'](https://github.com/YuxingLiu/CarND-Traffic-Sign-Classifier-Project/blob/master/signnames.csv). The count of each sign in each data set is calculated and shown as follows:
 
 ```python
+import pandas as pd
+
+signs_pd = pd.read_csv('signnames.csv')
 signs_num_train = np.array([sum(y_train == i) for i in range(len(np.unique(y_train)))])
 signs_num_valid = np.array([sum(y_valid == i) for i in range(len(np.unique(y_valid)))])
 signs_num_test = np.array([sum(y_test == i) for i in range(len(np.unique(y_test)))])
+signs_pd['NumTrain'] = pd.Series(signs_num_train)
+signs_pd['NumValid'] = pd.Series(signs_num_valid)
+signs_pd['NumTest'] = pd.Series(signs_num_test)
 ```
 | ClassId   |   SignName	        	    |   NumTrain    |   NumValid    |   NumTest |
 |:---------:|:-----------------------------:|:-------------:|:-------------:|:---------:| 
