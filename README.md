@@ -58,7 +58,7 @@ X_test, y_test = test['features'], test['labels']
 
 ### Provide a basic summary of the data set using python, numpy and/or pandas
 
-The numpy library are used to calculate summary statistics of the traffic signs data set:
+The numpy library is used to calculate summary statistics of the traffic signs data set:
 
 ```python
 import numpy as np
@@ -135,7 +135,7 @@ signs_num_test = np.array([sum(y_test == i) for i in range(len(np.unique(y_test)
 | 41        |   End of no passing           |   210         |   30          |   60      |
 | 42        |   End of no passing by vehicles over 3.5 metric tons | 210 | 30|  90      |
 
-The traffic signs distribution in the training set is plotted below. It can be observed that the number of each sign varies dramatically in each dataset, but their distrubution trends are similar among three datasets. It basically means some signs are expected to see more frequently than the others. Therefore, the relative ratio of signs is kept unchanged when augmenting the data.
+The traffic signs distribution in the training set is plotted below. It can be observed that the number of each sign varies dramatically in each dataset, but their distrubution trends are similar among three datasets. It basically means some signs are expected to see more frequently than the others. Therefore, the relative ratio of signs is kept unchanged later in training set augmentation.
 
 ![alt text][image2]
 
@@ -143,13 +143,54 @@ The traffic signs distribution in the training set is plotted below. It can be o
 
 ## Step 2: Design and Test a Model Architecture
 
+### Pre-process the Data Set
+
+From the previous visualization, one could see that the images are collected in different lighting conditions from different distances and viewing angles. To make the classifier more robust against potential deformations, the original traning set is augmented by adding 5 transformed versions, yielding 208,794 samples in total. In this study, the following perturbations are randomly applied:
+* Gaussian blur ([0, 0.5] sigma, 50% samples)
+* Contrast normalization ([0.75, 1.5] ratio)
+* Translation ([-2, 2] pixels)
+* Scale ([0.8, 1.2] ratio)
+* Rotation ([-15, 15] degrees)
+
+The [imgaug](https://github.com/aleju/imgaug) library is used to augment images in the training set:
+```python
+from imgaug import augmenters as iaa
+
+seq = iaa.Sequential([
+    # Small gaussian blur with random sigma between 0 and 0.5.
+    # But we only blur about 50% of all images.
+    iaa.Sometimes(0.5,
+        iaa.GaussianBlur(sigma=(0, 0.5))
+    ),
+    # Strengthen or weaken the contrast in each image.
+    iaa.ContrastNormalization((0.75, 1.5)),
+    # Apply affine transformations to each image.
+    # Scale/zoom them, translate/move them, rotate them and shear them.
+    iaa.Affine(
+        scale={"x": (0.8, 1.2), "y": (0.8, 1.2)},
+        translate_px={"x": (-2, 2), "y": (-2, 2)},
+        rotate=(-15, 15)
+    )
+], random_order=True) # apply augmenters in random order
+
+def augment_images(X_data, y_data, N_aug=5):
+    X_aug = np.zeros((X_data.shape[0]*N_aug, X_data.shape[1], X_data.shape[2], X_data.shape[3]), dtype=np.uint8)
+    y_aug = np.zeros((X_data.shape[0]*N_aug), dtype=np.uint8)
+    for i in range(len(X_data)):
+        images = np.array([X_data[i] for _ in range(N_aug)], dtype=np.uint8)
+        images_aug = seq.augment_images(images)
+        X_aug[i*N_aug:(i+1)*N_aug] = images_aug
+        y_aug[i*N_aug:(i+1)*N_aug] = y_data[i]
+    
+    return X_aug, y_aug
+```
+
+
 ####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
 As a first step, I decided to convert the images to grayscale because ...
 
 Here is an example of a traffic sign image before and after grayscaling.
-
-![alt text][image2]
 
 As a last step, I normalized the image data because ...
 
