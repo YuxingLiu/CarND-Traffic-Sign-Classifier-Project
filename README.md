@@ -76,7 +76,30 @@ n_classes = len(np.unique(y_train))
 * The shape of a traffic sign image is (32, 32, 3)
 * The number of unique classes/labels in the data set is 43
 
-The mappings from the class ID to the actual sign name can be found in ['signnames.csv']
+The mappings from the class ID to the actual sign name can be found in ['signnames.csv'](https://github.com/YuxingLiu/CarND-Traffic-Sign-Classifier-Project/blob/master/signnames.csv). The count of each sign in each data set is calculated and shown as follows:
+
+```python
+import pandas as pd
+
+signs_pd = pd.read_csv('signnames.csv')
+signs_num_train = np.array([sum(y_train == i) for i in range(len(np.unique(y_train)))])
+signs_num_valid = np.array([sum(y_valid == i) for i in range(len(np.unique(y_valid)))])
+signs_num_test = np.array([sum(y_test == i) for i in range(len(np.unique(y_test)))])
+signs_pd['NumTrain'] = pd.Series(signs_num_train)
+signs_pd['NumValid'] = pd.Series(signs_num_valid)
+signs_pd['NumTest'] = pd.Series(signs_num_test)
+```
+| ClassId         		|     SignName	        					|   NumTrain    |   NumValid    |   NumTest
+|:---------------------:|:---------------------------------------------:| 
+| Input         		| 32x32x3 RGB image   							| 
+| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
+| Convolution 3x3	    | etc.      									|
+| Fully connected		| etc.        									|
+| Softmax				| etc.        									|
+|						|												|
+|						|												|
 
 ####2. Include an exploratory visualization of the dataset.
 
