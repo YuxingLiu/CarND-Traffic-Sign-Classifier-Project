@@ -251,7 +251,7 @@ My final model consisted of the following layers:
 | RELU					|												|
 | Softmax				| probabilities of 43 traffic signs             |
  
-The first 3 convolutional layers consist of 32, 64, 128 (respectively) 5x5 filters, followed by 2x2 max pooling. The output of the third convolutional layer is flatten and fed to 3 fully connected layers, which are composed of 256, 128, 43 neurons, respectively. In addition, dropout is applied to the output of the 2 hidden layers.
+The first 3 convolutional layers consist of 32, 64, 128 (respectively) 5x5 filters, followed by 2x2 max pooling. The output of the third convolutional layer is flatten and fed to 3 fully connected layers, which are composed of 256, 128, 43 neurons, respectively. In addition, dropout is applied to the outputs of the 2 hidden layers.
 
 ```python
 import tensorflow as tf
@@ -324,9 +324,64 @@ logits = fc2d(fc2, weights['wd3'], biases['bd3'])
 
 ### Train, Validate and Test the Model
 
-####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+To train the model, the following parameter settings are adoped:
+```python
+EPOCHS = 25
+BATCH_SIZE = 128
+learning_rate = 0.0001
+dropout = 0.5  # Dropout, probability to keep units
+```
 
-To train the model, I used an ....
+The optimization problem considers to minimize the average cross entropy, using the [Adam optimizer](https://www.tensorflow.org/versions/r1.2/api_docs/python/tf/train/AdamOptimizer). The training pipeline is obtained as follows:
+```python
+cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=one_hot_y, logits=logits)
+loss_operation = tf.reduce_mean(cross_entropy)
+optimizer = tf.train.AdamOptimizer(learning_rate = learning_rate).minimize(loss_operation
+```
+
+To monitor the progress of training as well as get the prediction accuracy of the model, an evaluation function is defined:
+```python
+correct_prediction = tf.equal(tf.argmax(logits, 1), tf.argmax(one_hot_y, 1))
+accuracy_operation = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+saver = tf.train.Saver()
+
+def evaluate(X_data, y_data):
+    num_examples = len(X_data)
+    total_accuracy = 0
+    sess = tf.get_default_session()
+    for offset in range(0, num_examples, BATCH_SIZE):
+        batch_x, batch_y = X_data[offset:offset+BATCH_SIZE], y_data[offset:offset+BATCH_SIZE]
+        accuracy = sess.run(accuracy_operation, feed_dict={x: batch_x, y: batch_y, keep_prob: 1})
+        total_accuracy += (accuracy * len(batch_x))
+    return total_accuracy / num_examples
+```
+
+Then, the training is conducted by using the following code:
+```python
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    num_examples = len(X_train)
+    
+    print("Training...")
+    print()
+    for i in range(EPOCHS):
+        # rewrite due to memory error
+        # X_train, y_train = shuffle(X_train, y_train)
+        idx_rand = shuffle(np.arange(len(y_train)))
+        
+        for offset in range(0, num_examples, BATCH_SIZE):
+            end = offset + BATCH_SIZE
+            # rewrite due to memory error            
+            #batch_x, batch_y = X_train[offset:end|], y_train[offset:end]
+            batch_x, batch_y = X_train[idx_rand[offset:end]], y_train[idx_rand[offset:end]]
+            sess.run(optimizer, feed_dict={x: batch_x, y: batch_y, keep_prob: dropout})
+            
+        validation_accuracy = evaluate(X_valid, y_valid)
+        print("EPOCH {0:3},    Validation Accuracy = {1:.3f}".format(i+1, validation_accuracy))
+        
+    saver.save(sess, 'saved_models/ConvNet.ckpt')
+    print("Model saved")
+```
 
 ####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
