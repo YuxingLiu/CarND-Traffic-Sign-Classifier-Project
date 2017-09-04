@@ -158,14 +158,14 @@ plt.ylabel('Freq Test [%]')
 plt.xticks(np.arange(0,43,5), (np.arange(0,43,5)))
 plt.show()
 ```
-
+![alt text][image1]
 
 
 ####2. Include an exploratory visualization of the dataset.
 
 Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
 
-![alt text][image1]
+
 
 ###Design and Test a Model Architecture
 
