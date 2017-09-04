@@ -15,6 +15,7 @@ The goals / steps of this project are the following:
 * Analyze the softmax probabilities of the new images
 * Summarize the results with a written report
 
+Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
 [//]: # (Image References)
 
@@ -27,27 +28,45 @@ The goals / steps of this project are the following:
 [image7]: ./examples/placeholder.png "Traffic Sign 4"
 [image8]: ./examples/placeholder.png "Traffic Sign 5"
 
-## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
-
 ---
 
-### Data Set Summary & Exploration
+## Data Set Summary & Exploration
 
-#### 0. Load the data
+### 0. Load the data
 
 Download the pickled [dataset](https://d17h27t6h515a5.cloudfront.net/topher/2017/February/5898cd6f_traffic-signs-data/traffic-signs-data.zip), in which the images have been resized to 32x32.
 
-#### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+```
+import pickle
+import os
 
-The numpy library to calculate summary statistics of the traffic
-signs data set:
+training_file = 'traffic-signs-data/train.p'
+validation_file= 'traffic-signs-data/valid.p'
+testing_file = 'traffic-signs-data/test.p'
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+with open(training_file, mode='rb') as f:
+    train = pickle.load(f)
+with open(validation_file, mode='rb') as f:
+    valid = pickle.load(f)
+with open(testing_file, mode='rb') as f:
+    test = pickle.load(f)
+    
+X_train, y_train = train['features'], train['labels']
+X_valid, y_valid = valid['features'], valid['labels']
+X_test, y_test = test['features'], test['labels']
+```
+
+### 1. Provide a basic summary of the data set using python, numpy and/or pandas
+
+The numpy and pandas libraries are used to calculate summary statistics of the traffic signs data set:
+
+* The size of training set is 34799
+* The size of the validation set is 4410
+* The size of test set is 12630
+* The shape of a traffic sign image is (32, 32, 3)
+* The number of unique classes/labels in the data set is 43
+
+The mappings from the class ID to the actual sign name can be found in 'signnames.csv'
 
 ####2. Include an exploratory visualization of the dataset.
 
