@@ -324,7 +324,7 @@ logits = fc2d(fc2, weights['wd3'], biases['bd3'])
 
 ### Train, Validate and Test the Model
 
-To train the model, the following parameter settings are adoped:
+To train the model, the parameters are assigned as follows:
 ```python
 EPOCHS = 25
 BATCH_SIZE = 128
@@ -392,18 +392,10 @@ It's worth mentioning that it is an iterative process to find a solution with 98
 
 As illustrated in the dataset visualization, the real-world variabilities such as viewpoint, lighting conditions, motion-blur, sun glare, colors fading and low resolution pose difficulties for traffic sign classification. To this extent, data augmentation and Histogram equalization were utilized to enhance the robustness of the model against small disturbances. 
 
-After implementing augmentation and preprocessing, the validation accuracy of LeNet-5 was improved to 94%, while the training accuracy could reach 98%. The gap between the two accuracies implies overfitting, thus dropout is added to the network. Meanwhile, to further improve the performance of the classifier as well as to generate some 'redundent' features required for the dropout technique, a deeper (one additional convolutional layer) and wider (more features in each layer) network architecture is constructed.
+After implementing augmentation and preprocessing, the validation accuracy of LeNet-5 was improved to 94%, while the training accuracy could reach 98%. The gap between the two accuracies implies overfitting, hence two dropout layers with 'keep_prob=0.5' were added to the fully connected hidden layers. Meanwhile, to further improve the performance of the classifier as well as to generate some 'redundent' features required for the dropout technique, a deeper (one additional convolutional layer) and wider (more features in each layer) network architecture was constructed.
 
-####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+As regards the parameters tuning, the 'EPOCHS' and 'BATCH_SIZE' were limited by the computational power and memory size, respectively. With default 'learning_rate=1e-3', it was found that the validation accuracy could reach 97% after 3 iterations, then oscillated between 97% and 98%. Therefore, 'learning_rate=1e-4' was selected such that the validation accuracy progressively increased after each epoch.
 
-
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
- 
 
 ## Test the Model on New Images
 
