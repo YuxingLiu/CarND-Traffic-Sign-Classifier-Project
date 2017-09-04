@@ -145,7 +145,7 @@ The traffic signs distribution in the training set is plotted below. It can be o
 
 ### Pre-process the Data Set
 
-From the previous visualization, one could see that the images are collected in different lighting conditions from different distances and viewing angles. To make the classifier more robust against potential deformations, the original traning set is augmented by adding 5 transformed versions, yielding 208,794 samples in total. In this study, the following perturbations are randomly applied:
+From the previous visualization, one could see that the images are collected in different lighting conditions from different distances and viewing angles. To make the classifier more robust against potential deformations, the original training set is augmented by adding 5 transformed versions, yielding 208,794 samples in total. In this study, the following perturbations are randomly applied:
 * Gaussian blur ([0, 0.5] sigma, 50% of samples)
 * Contrast normalization ([0.75, 1.5] ratio)
 * Translation ([-2, 2] pixels)
@@ -387,6 +387,10 @@ The final model results were:
 * training set accuracy of 99.0%
 * validation set accuracy of 98.4% 
 * test set accuracy of 96.7%
+
+It's worth mentioning that it is an iterative process to find a solution with 98.4% validation set accuracy. The first architecture that was tried is the [LeNet-5](http://yann.lecun.com/exdb/lenet/) convolutional network for handwritten digit recognition. On the normalized training set (without preprocessing and augmentation), the initial architecture yielded about 91% accuracy. Converting the RGB images to grayscale didn't show improvement on the LeNet-5, so color images are used in the study.
+
+As illustrated in the dataset visualization, the real-world variabilities such as viewpoint, lighting conditions, motion-blur, sun glare, colors fading and low resolution pose difficulties for traffic sign classification. To this extent, data augmentation and Histogram equalization were utilized to enhance the robustness of the model against small disturbances. 
 
 ####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
