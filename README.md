@@ -454,9 +454,7 @@ Here are the results of the prediction:
 | 23        | Slippery Road | Slippery Road     |   97.7%       |
 | 2         | Speed Limit (50km/h)  |   Speed Limit (50km/h)    | 99.9% |
 
-The model was able to correctly guess 5 of the 5 traffic signs with over 97% certainty, which gives an accuracy of 100%. 
-
-To further analyze the performance on each class of signs, the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) on the test set are calculated as follows:
+The model was able to correctly guess 5 of the 5 traffic signs with over 97% certainty, which gives an accuracy of 100%. To further evaluate the performance on individual sign types, the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) on the test set are calculated as follows:
 
 ```python
 def precision_recall(y_data, y_pred):
@@ -482,7 +480,7 @@ with tf.Session() as sess:
 
 ![alt text][image7]
 
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+From the above plot, one could see that the precision and recall of those 5 classes are above 80%, which justifies the high accuracy on the 5 new images. On the other hand, note that the recall values of class 20 and 27 are relatively low, which give some insight into  how to better augment the data set and how to fine tune the model.
 
 ### Output Top 5 Softmax Probabilities For Each Image
 The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
