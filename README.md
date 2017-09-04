@@ -146,7 +146,7 @@ The traffic signs distribution in the training set is plotted below. It can be o
 ### Pre-process the Data Set
 
 From the previous visualization, one could see that the images are collected in different lighting conditions from different distances and viewing angles. To make the classifier more robust against potential deformations, the original traning set is augmented by adding 5 transformed versions, yielding 208,794 samples in total. In this study, the following perturbations are randomly applied:
-* Gaussian blur ([0, 0.5] sigma, 50% samples)
+* Gaussian blur ([0, 0.5] sigma, 50% of samples)
 * Contrast normalization ([0.75, 1.5] ratio)
 * Translation ([-2, 2] pixels)
 * Scale ([0.8, 1.2] ratio)
@@ -185,6 +185,24 @@ def augment_images(X_data, y_data, N_aug=5):
     return X_aug, y_aug
 ```
 
+Next, the following preprocessing steps are applied for all the data sets:
+* Histogram equalization to enhance contrast
+* Normalization in range [-0.5, 0.5]
+```python
+import cv2
+
+def pre_process_image(image):
+    # histogram equalization of RGB image
+    img_yuv = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
+    img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
+    image = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2RGB)
+    # normalization in range [-0.5, 0.5]
+    image = image/255.0 - 0.5
+    return image
+
+def pre_process_images(images):
+    return np.array([pre_process_image(images[i]) for i in range(len(images))])
+```
 
 ####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
