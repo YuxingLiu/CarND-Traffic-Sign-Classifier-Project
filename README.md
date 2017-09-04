@@ -19,8 +19,8 @@ Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/4
 
 [//]: # (Image References)
 
-[image1]: ./figures/distribution_traffic_signs.png "Distribution of Traffic Signs"
-[image2]: ./figures/grayscale.jpg "Grayscaling"
+[image1]: ./figures/all_signs.jpg "Visualization of Traffic Signs"
+[image2]: ./figures/distribution_traffic_signs.png "Distribution of Traffic Signs"
 [image3]: ./figures/random_noise.jpg "Random Noise"
 [image4]: ./figures/placeholder.png "Traffic Sign 1"
 [image5]: ./figures/placeholder.png "Traffic Sign 2"
@@ -58,7 +58,7 @@ X_test, y_test = test['features'], test['labels']
 
 ### 1. Provide a basic summary of the data set using python, numpy and/or pandas
 
-The numpy and pandas libraries are used to calculate summary statistics of the traffic signs data set:
+The numpy library are used to calculate summary statistics of the traffic signs data set:
 
 ```python
 import numpy as np
@@ -76,18 +76,18 @@ n_classes = len(np.unique(y_train))
 * The shape of a traffic sign image is (32, 32, 3)
 * The number of unique classes/labels in the data set is 43
 
+### 2. Include an exploratory visualization of the dataset.
+
+Here is an exploratory visualization of the data set.
+
+![alt text][image1]
+
 The mappings from the class ID to the actual sign name can be found in ['signnames.csv'](https://github.com/YuxingLiu/CarND-Traffic-Sign-Classifier-Project/blob/master/signnames.csv). The count of each sign in each data set is calculated and shown as follows:
 
 ```python
-import pandas as pd
-
-signs_pd = pd.read_csv('signnames.csv')
 signs_num_train = np.array([sum(y_train == i) for i in range(len(np.unique(y_train)))])
 signs_num_valid = np.array([sum(y_valid == i) for i in range(len(np.unique(y_valid)))])
 signs_num_test = np.array([sum(y_test == i) for i in range(len(np.unique(y_test)))])
-signs_pd['NumTrain'] = pd.Series(signs_num_train)
-signs_pd['NumValid'] = pd.Series(signs_num_valid)
-signs_pd['NumTest'] = pd.Series(signs_num_test)
 ```
 | ClassId   |   SignName	        	    |   NumTrain    |   NumValid    |   NumTest |
 |:---------:|:-----------------------------:|:-------------:|:-------------:|:---------:| 
@@ -135,35 +135,9 @@ signs_pd['NumTest'] = pd.Series(signs_num_test)
 | 41        |   End of no passing           |   210         |   30          |   60      |
 | 42        |   End of no passing by vehicles over 3.5 metric tons | 210 | 30|  90      |
 
-Plot the traffic signs distribution in the training set
+The traffic signs distribution in the training set is plotted below. It can be observed that the number of each sign varies dramatically in each dataset, but their distrubution trends are similar among three datasets. It basically means some signs are expected to see more frequently than the others. Therefore, the relative ratio of signs is kept unchanged when augmenting the data.
 
-```python
-plt.figure(figsize = (16,8))
-gs = gridspec.GridSpec(3,1)
-gs.update(wspace=0.05, hspace=0.05) # set the spacing between axes.
-    
-plt.subplot(gs[0])
-plt.bar(range(43),signs_num_train*100.0/np.sum(signs_num_train))
-plt.ylabel('Freq Train [%]')
-plt.title('Distribution of Traffic Sign Images')
-
-plt.subplot(gs[1])
-plt.bar(range(43),signs_num_valid*100.0/np.sum(signs_num_valid))
-plt.ylabel('Freq Valid [%]')
-
-plt.subplot(gs[2])
-plt.bar(range(43),signs_num_test*100.0/np.sum(signs_num_test))
-plt.xlabel('Sign ID')
-plt.ylabel('Freq Test [%]')
-plt.xticks(np.arange(0,43,5), (np.arange(0,43,5)))
-plt.show()
-```
-![alt text][image1]
-
-
-####2. Include an exploratory visualization of the dataset.
-
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+![alt text][image2]
 
 
 
