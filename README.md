@@ -402,7 +402,7 @@ The final model results were:
 * validation set accuracy of 98.4% 
 * test set accuracy of 96.7%
 
-It's worth mentioning that it is an iterative process to find a solution with 98.4% validation set accuracy. The first architecture tried was the [LeNet-5](http://yann.lecun.com/exdb/lenet/) convolutional network. **It has been successfully applied to a similar image classification problem on handwritten digit recognition, thus LeNet architecture can be a good starting point.** On the normalized training set (without augmentation and preprocessing), the initial architecture yielded about 91% accuracy. Converting the RGB images to grayscale didn't show improvement on the LeNet-5, so color images are used in the study.
+It's worth mentioning that it is an iterative process to find a solution with 98.4% validation set accuracy. The first architecture tried was the [LeNet-5](http://yann.lecun.com/exdb/lenet/) convolutional network, **which has been successfully applied to a similar image classification problem on handwritten digit recognition. Therefore, LeNet architecture can be a good starting point.** On the normalized training set (without augmentation and preprocessing), the initial architecture yielded about 91% accuracy. Converting the RGB images to grayscale didn't show improvement on the LeNet-5, so color images are used in the study.
 
 As illustrated in the dataset visualization, the real-world variabilities such as viewpoint, lighting conditions, motion-blur, sun glare, colors fading and low resolution pose difficulties for traffic sign classification. To this extent, data augmentation and Histogram equalization were utilized to enhance the robustness of the model against small disturbances. 
 
