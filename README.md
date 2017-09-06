@@ -415,7 +415,7 @@ As regards the parameters tuning, the `EPOCHS` and `BATCH_SIZE` were limited by 
 
 ####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
-Here is the [five German traffic signs](https://github.com/YuxingLiu/CarND-Traffic-Sign-Classifier-Project/tree/master/new_images) found on the web, which are down-sampled to 32x32 and pre-processed. **By looking at the following pre-processed new images, it is found that the relatively low brightness of the second sign and low contrast of the third sign may cause misclassification.**
+Here is the [five German traffic signs](https://github.com/YuxingLiu/CarND-Traffic-Sign-Classifier-Project/tree/master/new_images) found on the web, which are down-sampled to 32x32 and pre-processed. **By looking at the following pre-processed new images, it is found that the relatively low brightness of the second sign and low contrast of the third sign may cause the model to misclassify them.**
 
 ```python
 name_images = os.listdir("new_images/")
@@ -460,7 +460,7 @@ Here are the results of the prediction:
 | 23        | Slippery Road | Slippery Road     |   97.7%       |
 | 2         | Speed Limit (50km/h)  |   Speed Limit (50km/h)    | 99.9% |
 
-The model was able to correctly guess 5 of the 5 traffic signs with over 97% certainty, which gives an accuracy of 100%. To further evaluate the performance on individual sign types, the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) on the test set are calculated as follows:
+The model was able to correctly guess 5 of the 5 traffic signs with over 97% certainty, which gives an accuracy of 100%. **Futherfore, the 96.7% high accuracy on the test set implies that the model is neither underfitting nor overfitting.** To further evaluate the performance on individual sign types, the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) on the test set are calculated as follows:
 
 ```python
 def precision_recall(y_data, y_pred):
