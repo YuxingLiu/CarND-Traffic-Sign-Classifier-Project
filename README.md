@@ -309,16 +309,19 @@ biases = {
 ```
 ```python
 ### ConvNet
-# Layer 1: Convolutional. Input = 32x32x3. Output = 16x16x32.
+# Layer 1: 5x5 Convolutional. Input = 32x32x3. Output = 32x32x32.
 conv1 = con2d(x, weights['wc1'], biases['bc1'])
+# 2x2 Pooling. Output = 16x16x32.
 conv1 = maxpool2d(conv1, k=2)
 
-# Layer 2: Convolutional. Output = 8x8x64.
+# Layer 2: 5x5 Convolutional. Output = 16x16x64.
 conv2 = con2d(conv1, weights['wc2'], biases['bc2'])
+# 2x2 Pooling. Output = 8x8x64.
 conv2 = maxpool2d(conv2, k=2)
 
-# Layer 3: Convolutional. Output = 4x4x128.
+# Layer 3: 5x5 Convolutional. Output = 8x8x128.
 conv3 = con2d(conv2, weights['wc3'], biases['bc3'])
+# 2x2 Pooling. Output = 4x4x128.
 conv3 = maxpool2d(conv3, k=2)
 
 # Layer 4: Fully Connected. Input = 1024. Output = 256.
