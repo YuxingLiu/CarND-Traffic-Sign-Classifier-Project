@@ -243,22 +243,22 @@ My final model consisted of the following layers:
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x3 RGB image   							| 
-| Convolution 5x5     	| 1x1 stride, same padding, outputs 32x32x32 	|
+| Convolution 5x5     	| 1x1 stride, same padding, **32 filters** 	    |
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x32 				|
-| Convolution 5x5     	| 1x1 stride, same padding, outputs 16x16x64 	|
+| Max pooling	      	| 2x2 stride, 16x16x32 output				    |
+| Convolution 5x5     	| 1x1 stride, same padding, **64 filters** 	    |
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 8x8x64 				    |
-| Convolution 5x5     	| 1x1 stride, same padding, outputs 8x8x128 	|
+| Max pooling	      	| 2x2 stride, 8x8x64 output 				    |
+| Convolution 5x5     	| 1x1 stride, same padding, **128 filters** 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 4x4x128 				    |
-| Fully connected		| outputs 256        						    |
-| RELU					|												|
-| Dropout		        | keep_prob = 0.5							    |
-| Fully connected		| outputs 128        						    |
+| Max pooling	      	| 2x2 stride, 4x4x128 output  				    |
+| Fully connected		| 256 output        						    |
 | RELU					|												|
 | Dropout		        | keep_prob = 0.5							    |
-| Fully connected		| outputs 43        						    |
+| Fully connected		| 128 output       						        |
+| RELU					|												|
+| Dropout		        | keep_prob = 0.5							    |
+| Fully connected		| 43 output         						    |
 | RELU					|												|
 | Softmax				| probabilities of 43 traffic signs             |
  
