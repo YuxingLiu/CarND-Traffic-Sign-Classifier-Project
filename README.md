@@ -402,7 +402,7 @@ The final model results were:
 * validation set accuracy of 98.4% 
 * test set accuracy of 96.7%
 
-It's worth mentioning that it is an iterative process to find a solution with 98.4% validation set accuracy. The first architecture tried was the [LeNet-5](http://yann.lecun.com/exdb/lenet/) convolutional network, **which has been successfully applied to a similar image classification problem on handwritten digit recognition. Therefore, LeNet architecture can be a good starting point.** On the normalized training set (without augmentation and preprocessing), the initial architecture yielded about 91% accuracy. Converting the RGB images to grayscale didn't show improvement on the LeNet-5, so color images are used in the study.
+It's worth mentioning that it is an iterative process to find a solution with 98.4% validation set accuracy. The first architecture tried was the [LeNet-5](http://yann.lecun.com/exdb/lenet/) convolutional network, which has been successfully applied to a similar image classification problem on handwritten digit recognition. Therefore, LeNet architecture can be a good starting point. On the normalized training set (without augmentation and preprocessing), the initial architecture yielded about 91% accuracy. Converting the RGB images to grayscale didn't show improvement on the LeNet-5, so color images are used in the study.
 
 As illustrated in the dataset visualization, the real-world variabilities such as viewpoint, lighting conditions, motion-blur, sun glare, colors fading and low resolution pose difficulties for traffic sign classification. To this extent, data augmentation and Histogram equalization were utilized to enhance the robustness of the model against small disturbances. 
 
@@ -418,7 +418,7 @@ As regards the parameters tuning, the `EPOCHS` and `BATCH_SIZE` were limited by 
 
 ####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
-Here is the [five German traffic signs](https://github.com/YuxingLiu/CarND-Traffic-Sign-Classifier-Project/tree/master/new_images) found on the web, which are down-sampled to 32x32 and pre-processed. **By looking at the following pre-processed new images, it is found that the relatively low brightness of the second sign and low contrast of the third sign may cause the model to misclassify them.**
+Here is the [five German traffic signs](https://github.com/YuxingLiu/CarND-Traffic-Sign-Classifier-Project/tree/master/new_images) found on the web, which are down-sampled to 32x32 and pre-processed. By looking at the following pre-processed new images, it is found that the relatively low brightness of the second sign and low contrast of the third sign may cause the model to misclassify them.
 
 ```python
 name_images = os.listdir("new_images/")
@@ -463,7 +463,7 @@ Here are the results of the prediction:
 | 23        | Slippery Road | Slippery Road     |   97.7%       |
 | 2         | Speed Limit (50km/h)  |   Speed Limit (50km/h)    | 99.9% |
 
-The model was able to correctly guess 5 of the 5 traffic signs with over 97% certainty, which gives an accuracy of 100%. **Futherfore, the 96.7% high accuracy on the test set implies that the model is neither underfitting nor overfitting.** To further evaluate the performance on individual sign types, the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) on the test set are calculated as follows:
+The model was able to correctly guess 5 of the 5 traffic signs with over 97% certainty, which gives an accuracy of 100%. Futherfore, the 96.7% high accuracy on the test set implies that the model is neither underfitting nor overfitting. To further evaluate the performance on individual sign types, the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) on the test set are calculated as follows:
 
 ```python
 def precision_recall(y_data, y_pred):
