@@ -415,9 +415,6 @@ As regards the parameters tuning, the `EPOCHS` and `BATCH_SIZE` were limited by 
 
 ### Load and Output the Images
 
-
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
-
 Here is the [five German traffic signs](https://github.com/YuxingLiu/CarND-Traffic-Sign-Classifier-Project/tree/master/new_images) found on the web, which are down-sampled to 32x32 and pre-processed. By looking at the following pre-processed new images, it is found that the relatively low brightness of the second sign and low contrast of the third sign may cause the model to misclassify them.
 
 ```python
